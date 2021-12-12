@@ -39,12 +39,9 @@ for i in 0...4 {
     } else {
         removeLines(startingWith: "1", position: i)
     }
-    
 }
 
-
 printData()
-
 
 func removeLines(startingWith:String, position:Int){
     
