@@ -10,54 +10,33 @@ func loadData() -> String{
 
 let content = loadData()
 var reportData = content.split(separator: "\n")
-var analysisData = [[Character]]()
 
-for data in reportData {
- analysisData.append(Array(String(data)))
+var data = [[Character]]()
+
+for row in reportData {
+    let arr = Array(row)
+    data.append(arr)
+    
 }
 
-
-for i in 0...4 {
-    var ones = 0
-    var zeros = 0
+var gammaRate = ""
+for i in 0 ... data[0].count - 1 {
+    var clm = [Character]()
     
-    for data in (analysisData) {
-        
-        let num = String(Array(data)[i])
-        
-        if num == "1" {
-            ones += 1
-        } else {
-            zeros += 1
-        }
+    for ii in 0 ... data.count - 1 {
+        clm.append(data[ii][i])
     }
     
-    if  ones > zeros {
-        removeLines(startingWith: "0", position: i)
-    } else if zeros > ones {
-        removeLines(startingWith: "1", position: i)
+    let zeroCount = clm.filter { $0 == "0"}.count
+    let oneCount = clm.filter { $0 == "1"}.count
+    
+    if zeroCount > oneCount {
+        gammaRate += "0"
+    } else if oneCount > zeroCount {
+        gammaRate += "1"
     } else {
-        removeLines(startingWith: "1", position: i)
+        
     }
 }
-
-printData()
-
-func removeLines(startingWith:String, position:Int){
-    
-    for i in stride(from: analysisData.count - 1, to: 0, by: -1) {
-        if analysisData[i][position] == Character(startingWith) {
-          //  print("removed \(analysisData.remove(at: i))")
-            analysisData.remove(at: i)
-        }
-    }
-    //printData()
-}
-
-func printData() {
-    for data in analysisData {
-        print("current content \(data)")
-    }
-}
-
+print(gammaRate)
 
